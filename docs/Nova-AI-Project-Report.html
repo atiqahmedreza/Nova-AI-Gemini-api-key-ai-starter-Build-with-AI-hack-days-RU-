@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nova AI — Project Report</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 18mm 16mm 18mm 16mm;
+    }
+
+    :root {
+      --ink: #12141f;
+      --muted: #4b5568;
+      --line: #e5e7eb;
+      --soft: #f5f3ff;
+      --brand: #7c3aed;
+      --brand-2: #2563eb;
+      --card: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 11pt;
+      line-height: 1.55;
+      background: #fff;
+    }
+
+    h1, h2, h3 {
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.25;
+      margin: 0 0 10px;
+      color: #0f172a;
+    }
+
+    h1 { font-size: 26pt; }
+    h2 {
+      font-size: 15pt;
+      margin-top: 26px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--brand);
+      page-break-after: avoid;
+    }
+    h3 {
+      font-size: 12pt;
+      margin-top: 16px;
+      color: #312e81;
+      page-break-after: avoid;
+    }
+
+    p { margin: 0 0 10px; }
+    ul, ol { margin: 0 0 12px; padding-left: 20px; }
+    li { margin-bottom: 5px; }
+
+    .cover {
+      min-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 24px 8px;
+      page-break-after: always;
+    }
+
+    .badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #7c3aed, #2563eb);
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 10pt;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      margin-bottom: 18px;
+    }
+
+    .subtitle {
+      font-size: 13pt;
+      color: var(--muted);
+      max-width: 540px;
+      margin-bottom: 28px;
+    }
+
+    .meta {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 8px 12px;
+      max-width: 480px;
+      background: var(--soft);
+      border: 1px solid #ddd6fe;
+      border-radius: 12px;
+      padding: 16px 18px;
+    }
+
+    .meta strong { color: #4c1d95; }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin: 10px 0 14px;
+      page-break-inside: avoid;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .feature-title {
+      font-weight: 700;
+      color: #1e1b4b;
+      margin-bottom: 4px;
+    }
+
+    .muted { color: var(--muted); }
+    .small { font-size: 10pt; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0 16px;
+      font-size: 10.5pt;
+    }
+
+    th, td {
+      border: 1px solid var(--line);
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #ede9fe;
+      color: #4c1d95;
+    }
+
+    tr:nth-child(even) td { background: #fafafa; }
+
+    code {
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 9.5pt;
+    }
+
+    .toc ol { margin-top: 8px; }
+    .toc a { color: #4338ca; text-decoration: none; }
+
+    .footer-note {
+      margin-top: 28px;
+      padding-top: 10px;
+      border-top: 1px solid var(--line);
+      font-size: 9.5pt;
+      color: var(--muted);
+    }
+
+    .step {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 10px;
+      page-break-inside: avoid;
+    }
+
+    .step-num {
+      flex: 0 0 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--brand);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 11pt;
+    }
+  </style>
+</head>
+<body>
+  <!-- COVER -->
+  <section class="cover">
+    <div class="badge">PROJECT REPORT</div>
+    <h1>Nova AI<br />Reusable AI Starter Template</h1>
+    <p class="subtitle">
+      A beginner-friendly, production-quality web application that uses Google Gemini
+      to power chat and many AI product ideas from one reusable codebase.
+    </p>
+    <div class="meta">
+      <div><strong>Project Name</strong></div><div>Nova AI — AI Starter Template</div>
+      <div><strong>Type</strong></div><div>Full-Stack AI Web Application (Frontend + Gemini API)</div>
+      <div><strong>Stack</strong></div><div>React, Vite, JavaScript, Tailwind CSS, Google Gemini</div>
+      <div><strong>Purpose</strong></div><div>Hackathon / Portfolio / Reusable AI Product Foundation</div>
+      <div><strong>Date</strong></div><div>16 July 2026</div>
+    </div>
+  </section>
+
+  <!-- TOC -->
+  <section class="toc">
+    <h2>1. Table of Contents</h2>
+    <ol>
+      <li>Introduction</li>
+      <li>Project Objectives</li>
+      <li>Technology Stack</li>
+      <li>System Architecture</li>
+      <li>Pages and Layout</li>
+      <li>Feature Guide (All Features Explained)</li>
+      <li>How the AI Works</li>
+      <li>Reusable Prompt System</li>
+      <li>Error Handling and Safety</li>
+      <li>How to Run the Project</li>
+      <li>Deployment</li>
+      <li>Future Improvements</li>
+      <li>Conclusion</li>
+    </ol>
+  </section>
+
+  <h2>2. Introduction</h2>
+  <p>
+    <strong>Nova AI</strong> is a modern AI starter template. It looks and feels like a premium
+    SaaS product (similar to ChatGPT-style apps), but the code is designed so you can reuse it
+    for many different AI tools.
+  </p>
+  <p>
+    Instead of building a new project every time, you can keep the same architecture and only
+    change prompts and UI text to create products such as:
+  </p>
+  <ul>
+    <li>AI Chatbot</li>
+    <li>AI Resume Analyzer</li>
+    <li>AI Study Assistant</li>
+    <li>AI Interview Coach</li>
+    <li>AI Career Advisor</li>
+    <li>AI Code Reviewer</li>
+    <li>AI Email Assistant</li>
+    <li>AI Project Generator</li>
+    <li>AI Research Assistant</li>
+  </ul>
+
+  <h2>3. Project Objectives</h2>
+  <div class="grid-2">
+    <div class="card">
+      <div class="feature-title">Beginner Friendly</div>
+      <p class="muted small">Clear folders, simple JavaScript, easy setup with npm.</p>
+    </div>
+    <div class="card">
+      <div class="feature-title">Production Quality</div>
+      <p class="muted small">Clean UI, reusable components, and proper error handling.</p>
+    </div>
+    <div class="card">
+      <div class="feature-title">Highly Reusable</div>
+      <p class="muted small">One Gemini service + prompt system for many AI apps.</p>
+    </div>
+    <div class="card">
+      <div class="feature-title">Portfolio Worthy</div>
+      <p class="muted small">Premium glassmorphism UI suitable for demos and recruiters.</p>
+    </div>
+  </div>
+
+  <h2>4. Technology Stack</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Layer</th>
+        <th>Technology</th>
+        <th>Why it is used</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>UI Framework</td>
+        <td>React (Vite)</td>
+        <td>Fast development and modern component-based UI</td>
+      </tr>
+      <tr>
+        <td>Language</td>
+        <td>JavaScript</td>
+        <td>Easy for beginners; no TypeScript complexity</td>
+      </tr>
+      <tr>
+        <td>Styling</td>
+        <td>Tailwind CSS</td>
+        <td>Quick premium styling with consistent design tokens</td>
+      </tr>
+      <tr>
+        <td>Icons</td>
+        <td>React Icons</td>
+        <td>Clean icons for navigation and actions</td>
+      </tr>
+      <tr>
+        <td>Markdown</td>
+        <td>React Markdown + remark-gfm</td>
+        <td>Beautiful AI answers with lists, tables, and formatting</td>
+      </tr>
+      <tr>
+        <td>Code Highlight</td>
+        <td>Highlight.js</td>
+        <td>Readable code blocks in AI responses</td>
+      </tr>
+      <tr>
+        <td>AI Engine</td>
+        <td>Google Gemini (`@google/genai`)</td>
+        <td>Latest official SDK for generating AI replies</td>
+      </tr>
+      <tr>
+        <td>Routing</td>
+        <td>React Router</td>
+        <td>Landing page and Chat page navigation</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>5. System Architecture</h2>
+  <p>The project follows a clean layered structure:</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Folder</th>
+        <th>Responsibility</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><code>src/pages</code></td><td>Full screens: Landing Page and Chat Page</td></tr>
+      <tr><td><code>src/layouts</code></td><td>Page shells (landing shell and app shell with sidebars)</td></tr>
+      <tr><td><code>src/components</code></td><td>Reusable UI pieces (chat bubbles, buttons, cards)</td></tr>
+      <tr><td><code>src/context</code></td><td>Shared app state: theme, chat sessions, toasts</td></tr>
+      <tr><td><code>src/hooks</code></td><td>Logic helpers like send message and auto-scroll</td></tr>
+      <tr><td><code>src/services</code></td><td>Only place that talks to Gemini API</td></tr>
+      <tr><td><code>src/constants</code></td><td>App name, prompts, templates</td></tr>
+      <tr><td><code>src/utils</code></td><td>Error mapping and small helper functions</td></tr>
+    </tbody>
+  </table>
+  <p>
+    This separation makes the project easy to understand, maintain, and extend.
+  </p>
+
+  <h2>6. Pages and Layout</h2>
+
+  <h3>6.1 Landing Page</h3>
+  <p>The first page users see. It is designed like a premium AI SaaS dashboard and includes:</p>
+  <ul>
+    <li>Brand/hero panel with project name and key benefits</li>
+    <li>Studio preview showing how the chat product looks</li>
+    <li>Quick template shortcuts</li>
+    <li>Usage overview (demo stats)</li>
+    <li>Product cards for many AI use cases</li>
+    <li>Footer strip with value points</li>
+  </ul>
+
+  <h3>6.2 Chat Studio Page (<code>/chat</code>)</h3>
+  <p>The main working screen of the system. It includes:</p>
+  <ul>
+    <li><strong>Left Sidebar:</strong> New Chat button and conversation history</li>
+    <li><strong>Center Chat Area:</strong> messages, typing indicator, and input box</li>
+    <li><strong>Right Rail:</strong> Quick Templates and usage overview</li>
+    <li><strong>Header:</strong> theme toggle, clear chat, new chat</li>
+  </ul>
+
+  <h2>7. Feature Guide (All Features Explained)</h2>
+  <p class="muted">This section explains every major feature in simple language.</p>
+
+  <h3>7.1 Premium SaaS User Interface</h3>
+  <div class="card">
+    <p>
+      The interface uses glass panels, soft shadows, rounded cards, gradient buttons, and smooth
+      animations. The goal is to look like modern products such as ChatGPT, Linear, Notion AI,
+      and Vercel dashboards.
+    </p>
+  </div>
+
+  <h3>7.2 Dark Mode and Light Mode</h3>
+  <div class="card">
+    <p>
+      Users can switch between dark and light themes with one click. The selected theme is saved
+      in browser storage, so it stays the same after refresh.
+    </p>
+  </div>
+
+  <h3>7.3 Landing Page Experience</h3>
+  <div class="card">
+    <p>
+      The landing page introduces the product and shows what users can build. Buttons like
+      <strong>New Chat</strong>, <strong>Send</strong>, and <strong>Try Template</strong> take the
+      user into the real chat studio.
+    </p>
+  </div>
+
+  <h3>7.4 Sidebar Navigation</h3>
+  <div class="card">
+    <p>
+      The left sidebar helps users manage chats. They can start a new chat, open an old chat,
+      or delete a chat. On mobile, the sidebar opens as a drawer.
+    </p>
+  </div>
+
+  <h3>7.5 Session Conversation History</h3>
+  <div class="card">
+    <p>
+      Every conversation is saved as a session. Sessions are stored in <code>localStorage</code>,
+      so history remains after closing and reopening the browser (on the same device).
+    </p>
+  </div>
+
+  <h3>7.6 New Chat</h3>
+  <div class="card">
+    <p>
+      Creates a fresh empty conversation. Useful when switching topics so the AI does not mix
+      old context with a new task.
+    </p>
+  </div>
+
+  <h3>7.7 Clear Chat</h3>
+  <div class="card">
+    <p>
+      Removes messages from the current conversation while keeping the session entry. Helpful
+      for resetting a chat quickly.
+    </p>
+  </div>
+
+  <h3>7.8 Chat Conversation Area</h3>
+  <div class="card">
+    <p>
+      Shows the full message thread. User messages appear on the right. AI messages appear on
+      the left with a sparkle avatar.
+    </p>
+  </div>
+
+  <h3>7.9 User Message Bubble</h3>
+  <div class="card">
+    <p>
+      Displays what the user typed in a clean right-aligned bubble.
+    </p>
+  </div>
+
+  <h3>7.10 AI Message Bubble</h3>
+  <div class="card">
+    <p>
+      Displays Gemini replies in a glass-style bubble. Supports rich formatting for easier reading.
+    </p>
+  </div>
+
+  <h3>7.11 Markdown Support</h3>
+  <div class="card">
+    <p>
+      AI answers can include headings, bold text, lists, links, tables, and quotes. This makes
+      long answers much easier to scan.
+    </p>
+  </div>
+
+  <h3>7.12 Code Syntax Highlighting</h3>
+  <div class="card">
+    <p>
+      When the AI returns code, it is shown in a highlighted code block with language label and
+      a copy button. Languages like JavaScript, Python, HTML, CSS, JSON, and more are supported.
+    </p>
+  </div>
+
+  <h3>7.13 Typing Indicator</h3>
+  <div class="card">
+    <p>
+      While waiting for Gemini, animated dots appear so the user knows the system is working.
+    </p>
+  </div>
+
+  <h3>7.14 Loading Spinner</h3>
+  <div class="card">
+    <p>
+      A spinner appears on the Send button during request processing and during route loading.
+    </p>
+  </div>
+
+  <h3>7.15 Auto Scroll</h3>
+  <div class="card">
+    <p>
+      The chat automatically scrolls to the newest message so users always see the latest reply.
+    </p>
+  </div>
+
+  <h3>7.16 Enter to Send / Shift+Enter for New Line</h3>
+  <div class="card">
+    <p>
+      <strong>Enter</strong> sends the message.
+      <strong>Shift + Enter</strong> adds a new line inside the input box.
+      This matches modern chat product behavior.
+    </p>
+  </div>
+
+  <h3>7.17 Copy AI Response</h3>
+  <div class="card">
+    <p>
+      Users can copy a full AI reply (or a code block) to the clipboard with one click.
+      A toast confirms the copy action.
+    </p>
+  </div>
+
+  <h3>7.18 Empty Chat Starter Prompts</h3>
+  <div class="card">
+    <p>
+      When a chat is empty, starter cards appear (for example: explain a concept, improve a resume
+      bullet, mock interview, code review). Clicking a card sends that prompt immediately.
+    </p>
+  </div>
+
+  <h3>7.19 Quick Templates (Right Panel)</h3>
+  <div class="card">
+    <p>
+      The right rail provides ready templates such as Resume Analyzer, Study Assistant,
+      Interview Coach, Code Reviewer, Email Assistant, and Research Assistant.
+      Selecting one starts a guided prompt in chat.
+    </p>
+  </div>
+
+  <h3>7.20 Product Template Cards (Landing)</h3>
+  <div class="card">
+    <p>
+      The landing page shows multiple AI product cards. Each card has an icon, short description,
+      mini preview, and a “Try Template” button that opens the studio.
+    </p>
+  </div>
+
+  <h3>7.21 Toast Notifications</h3>
+  <div class="card">
+    <p>
+      Small popup messages appear for success, info, warning, and error events
+      (for example: “Chat cleared”, “Response copied”, API errors).
+    </p>
+  </div>
+
+  <h3>7.22 Error UI</h3>
+  <div class="card">
+    <p>
+      Important problems are shown in a red error banner inside the chat area.
+      Users can dismiss the banner after reading it.
+    </p>
+  </div>
+
+  <h3>7.23 Responsive Design</h3>
+  <div class="card">
+    <p>
+      The layout works on desktop, tablet, and mobile. Side panels become drawers on smaller screens
+      so the chat remains usable.
+    </p>
+  </div>
+
+  <h3>7.24 Environment-Based API Key</h3>
+  <div class="card">
+    <p>
+      The Gemini API key is stored in a <code>.env</code> file as <code>VITE_GEMINI_API_KEY</code>.
+      Secrets are not hardcoded in source files. <code>.env</code> is gitignored for safety.
+    </p>
+  </div>
+
+  <h3>7.25 Reusable Gemini Service</h3>
+  <div class="card">
+    <p>
+      All AI calls go through <code>src/services/geminiService.js</code>.
+      Pages and components do not talk to Gemini directly. This keeps the code clean and reusable.
+    </p>
+  </div>
+
+  <h3>7.26 Reusable Prompt System</h3>
+  <div class="card">
+    <p>
+      System instructions and product presets live in <code>src/constants/prompts.js</code>.
+      Changing prompts can turn the same app into a different AI product without rewriting the whole project.
+    </p>
+  </div>
+
+  <h2>8. How the AI Works (Simple Flow)</h2>
+  <div class="step"><div class="step-num">1</div><div>User types a message and presses Enter (or Send).</div></div>
+  <div class="step"><div class="step-num">2</div><div>App checks that the message is not empty and that an API key exists.</div></div>
+  <div class="step"><div class="step-num">3</div><div>User message is added to the active chat session.</div></div>
+  <div class="step"><div class="step-num">4</div><div><code>geminiService</code> sends chat history + new message + system prompt to Gemini.</div></div>
+  <div class="step"><div class="step-num">5</div><div>Gemini returns a text reply.</div></div>
+  <div class="step"><div class="step-num">6</div><div>App shows the reply with markdown/code formatting and saves it in session history.</div></div>
+
+  <h2>9. Reusable Prompt System</h2>
+  <p>The project includes product presets such as:</p>
+  <table>
+    <thead>
+      <tr><th>Preset</th><th>What it becomes</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>chatbot</code></td><td>General AI assistant</td></tr>
+      <tr><td><code>resumeAnalyzer</code></td><td>Resume feedback and rewrite helper</td></tr>
+      <tr><td><code>studyAssistant</code></td><td>Learning coach with simple explanations</td></tr>
+      <tr><td><code>interviewCoach</code></td><td>Mock interview practice</td></tr>
+      <tr><td><code>careerAdvisor</code></td><td>Career planning guidance</td></tr>
+      <tr><td><code>codeReviewer</code></td><td>Code quality and bug review</td></tr>
+      <tr><td><code>emailAssistant</code></td><td>Professional email drafting</td></tr>
+      <tr><td><code>projectGenerator</code></td><td>MVP and project idea planning</td></tr>
+      <tr><td><code>researchAssistant</code></td><td>Topic summaries and research help</td></tr>
+    </tbody>
+  </table>
+  <p>
+    To specialize the app, update branding in <code>appConfig.js</code> / <code>.env</code>
+    and switch the active system prompt.
+  </p>
+
+  <h2>10. Error Handling and Safety</h2>
+  <table>
+    <thead>
+      <tr><th>Problem</th><th>What the user sees</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Empty message</td><td>Warning toast; no API call is made</td></tr>
+      <tr><td>Missing API key</td><td>Error banner with setup instructions</td></tr>
+      <tr><td>Network failure</td><td>Clear network error message</td></tr>
+      <tr><td>Invalid/unauthorized key</td><td>Actionable API key error message</td></tr>
+      <tr><td>Rate limit / quota</td><td>Retry later / change model guidance</td></tr>
+      <tr><td>Unavailable model</td><td>Message to update <code>VITE_GEMINI_MODEL</code></td></tr>
+      <tr><td>Unexpected error</td><td>Safe fallback error message</td></tr>
+    </tbody>
+  </table>
+  <p class="small muted">
+    Note: Because this is a frontend Vite app, <code>VITE_*</code> keys are visible in the browser.
+    This is fine for demos and hackathons. For real production apps, API calls should go through a backend proxy.
+  </p>
+
+  <h2>11. How to Run the Project</h2>
+  <div class="step"><div class="step-num">1</div><div>Install packages: <code>npm install</code></div></div>
+  <div class="step"><div class="step-num">2</div><div>Create <code>.env</code> from <code>.env.example</code> and add your Gemini API key</div></div>
+  <div class="step"><div class="step-num">3</div><div>Start development server: <code>npm run dev</code></div></div>
+  <div class="step"><div class="step-num">4</div><div>Open the local URL (usually <code>http://localhost:5173</code>)</div></div>
+  <div class="step"><div class="step-num">5</div><div>Build for production: <code>npm run build</code></div></div>
+
+  <h2>12. Deployment</h2>
+  <p>The project is ready for:</p>
+  <ul>
+    <li><strong>GitHub:</strong> push source code (never commit <code>.env</code>)</li>
+    <li><strong>Vercel:</strong> import repository, set env vars, deploy as Vite app</li>
+  </ul>
+  <p>
+    <code>vercel.json</code> includes SPA rewrite rules so routes like <code>/chat</code> work correctly after deploy.
+  </p>
+
+  <h2>13. Future Improvements</h2>
+  <ul>
+    <li>Backend proxy so API keys stay private</li>
+    <li>Streaming responses (token-by-token output)</li>
+    <li>File upload for resume/PDF analysis</li>
+    <li>User authentication and cloud-synced history</li>
+    <li>Voice input and richer multimodal features</li>
+    <li>Prompt evaluation tools for quality testing</li>
+  </ul>
+
+  <h2>14. Conclusion</h2>
+  <p>
+    Nova AI is more than a chatbot demo. It is a reusable foundation for building many AI products
+    quickly. With a clean architecture, a polished SaaS interface, Gemini integration, session history,
+    markdown/code support, and a flexible prompt system, it is suitable for hackathons, learning,
+    and portfolio presentation.
+  </p>
+  <p>
+    By changing prompts and UI branding, the same project can become a resume analyzer, interview coach,
+    study assistant, or another specialized AI tool — without rebuilding everything from scratch.
+  </p>
+
+  <div class="footer-note">
+    End of Report — Nova AI Reusable AI Starter Template · Generated for project documentation · July 2026
+  </div>
+</body>
+</html>

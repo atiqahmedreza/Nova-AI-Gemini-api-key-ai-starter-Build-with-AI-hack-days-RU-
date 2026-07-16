@@ -1,0 +1,98 @@
+/* Compact highlight.js theme tuned for glass chat bubbles */
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1rem 1.1rem;
+  border-radius: 0.9rem;
+  background: rgba(7, 12, 20, 0.85);
+  color: #e8eef6;
+  font-size: 0.85rem;
+  line-height: 1.55;
+}
+
+.dark .hljs {
+  background: rgba(7, 12, 20, 0.92);
+}
+
+:root:not(.dark) .hljs {
+  background: #161f2c;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #8b9bb0;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: #5eead4;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+  color: #fbbf24;
+}
+
+.hljs-string,
+.hljs-doctag {
+  color: #86efac;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: #7dd3fc;
+  font-weight: 600;
+}
+
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #c4b5fd;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+  color: #f9a8d4;
+  font-weight: normal;
+}
+
+.hljs-regexp,
+.hljs-link {
+  color: #fda4af;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+  color: #fcd34d;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #67e8f9;
+}
+
+.hljs-meta {
+  color: #94a3b8;
+}
+
+.hljs-deletion {
+  background: rgba(248, 113, 113, 0.2);
+}
+
+.hljs-addition {
+  background: rgba(74, 222, 128, 0.2);
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: 700;
+}
