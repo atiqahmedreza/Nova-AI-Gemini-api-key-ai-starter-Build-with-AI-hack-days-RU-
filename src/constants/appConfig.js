@@ -8,7 +8,12 @@ export const APP_DESCRIPTION =
   'A production-ready Gemini starter template. Swap prompts and UI to ship chatbots, advisors, coaches, and assistants in hours — not weeks.'
 
 export const GEMINI_MODEL =
-  import.meta.env.VITE_GEMINI_MODEL || 'gemini-flash-latest'
+  import.meta.env.VITE_GEMINI_MODEL || 'gemini-3-flash-preview'
+
+export const GEMINI_FALLBACK_MODELS = [
+  'gemini-3-flash-preview',
+  'gemini-flash-latest',
+]
 
 export const GEMINI_API_KEY = String(
   import.meta.env.VITE_GEMINI_API_KEY || '',

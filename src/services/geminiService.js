@@ -1,23 +1,50 @@
 import { GoogleGenAI } from '@google/genai'
-import { GEMINI_API_KEY, GEMINI_MODEL } from '../constants/appConfig'
+import {
+  GEMINI_API_KEY,
+  GEMINI_FALLBACK_MODELS,
+  GEMINI_MODEL,
+} from '../constants/appConfig'
 import { getSystemPrompt } from '../constants/prompts'
 import { AppError, ERROR_CODES, mapGeminiError } from '../utils/errors'
 
 let client = null
+let clientKey = ''
 
 function getClient() {
-  if (!GEMINI_API_KEY) {
+  const apiKey = String(
+    import.meta.env.VITE_GEMINI_API_KEY || GEMINI_API_KEY || '',
+  ).trim()
+
+  if (!apiKey) {
     throw new AppError(
       ERROR_CODES.CONFIG,
       'Missing VITE_GEMINI_API_KEY. Add it to your .env file and restart the server.',
     )
   }
 
-  if (!client) {
-    client = new GoogleGenAI({ apiKey: GEMINI_API_KEY })
+  if (!client || clientKey !== apiKey) {
+    client = new GoogleGenAI({ apiKey })
+    clientKey = apiKey
   }
 
   return client
+}
+
+function getModelCandidates(preferred) {
+  return [...new Set([preferred, ...GEMINI_FALLBACK_MODELS].filter(Boolean))]
+}
+
+function isRetryableModelError(error) {
+  const status = Number(error?.status || error?.code || 0)
+  const raw = String(error?.message || '').toLowerCase()
+  return (
+    status === 404 ||
+    status === 429 ||
+    raw.includes('quota') ||
+    raw.includes('rate limit') ||
+    raw.includes('no longer available') ||
+    raw.includes('not found')
+  )
 }
 
 /**
@@ -33,11 +60,35 @@ export function toGeminiContents(messages = []) {
     }))
 }
 
+async function generateWithModel({
+  ai,
+  model,
+  contents,
+  systemInstruction,
+}) {
+  const response = await ai.models.generateContent({
+    model,
+    contents,
+    config: {
+      systemInstruction,
+      temperature: 0.7,
+    },
+  })
+
+  const text = String(response?.text || '').trim()
+
+  if (!text) {
+    throw new AppError(
+      ERROR_CODES.API,
+      'The model returned an empty response. Try rephrasing your question.',
+    )
+  }
+
+  return { text, model }
+}
+
 /**
  * Reusable Gemini boundary — the only place that talks to Google Gen AI.
- *
- * @param {{ history?: Array, userMessage: string, systemInstruction?: string, model?: string }} params
- * @returns {Promise<{ text: string }>}
  */
 export async function sendMessage({
   history = [],
@@ -51,36 +102,36 @@ export async function sendMessage({
     throw new AppError(ERROR_CODES.EMPTY, 'Message cannot be empty.')
   }
 
-  try {
-    const ai = getClient()
-    const contents = [
-      ...toGeminiContents(history),
-      { role: 'user', parts: [{ text: trimmed }] },
-    ]
+  const ai = getClient()
+  const contents = [
+    ...toGeminiContents(history),
+    { role: 'user', parts: [{ text: trimmed }] },
+  ]
 
-    const response = await ai.models.generateContent({
-      model,
-      contents,
-      config: {
+  const candidates = getModelCandidates(model)
+  let lastError = null
+
+  for (const candidate of candidates) {
+    try {
+      return await generateWithModel({
+        ai,
+        model: candidate,
+        contents,
         systemInstruction,
-        temperature: 0.7,
-      },
-    })
+      })
+    } catch (error) {
+      if (error instanceof AppError && error.code === ERROR_CODES.EMPTY) {
+        throw error
+      }
 
-    const text = String(response?.text || '').trim()
-
-    if (!text) {
-      throw new AppError(
-        ERROR_CODES.API,
-        'The model returned an empty response. Try rephrasing your question.',
-      )
+      lastError = error
+      if (!isRetryableModelError(error)) {
+        throw mapGeminiError(error)
+      }
     }
-
-    return { text }
-  } catch (error) {
-    if (error instanceof AppError) throw error
-    throw mapGeminiError(error)
   }
+
+  throw mapGeminiError(lastError)
 }
 
 export function hasApiKey() {
